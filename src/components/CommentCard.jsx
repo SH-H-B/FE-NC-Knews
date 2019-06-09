@@ -8,9 +8,7 @@ const CommentCard = ({ comment, loggedInUser, commentListUpdater }) => {
       <small className="text-muted font-italic">
         <footer className="blockquote-footer float-right">
           Posted by {comment.author}
-          <cite title="Source Title">
-            , at {comment.created_at.split("T")[0]}
-          </cite>
+          <cite title="Source Title">, at {new Date(comment.created_at)}</cite>
         </footer>{" "}
       </small>
       <div className="card-text">

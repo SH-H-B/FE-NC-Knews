@@ -45,7 +45,7 @@ const ArticleCard = ({
           <footer className="blockquote-footer float-right">
             Posted by {article.author}
             <cite title="Source Title">
-              , at {article.created_at.split("T")[0]}
+              , at {new Date(article.created_at)}
             </cite>
           </footer>{" "}
         </small>
