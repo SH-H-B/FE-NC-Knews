@@ -12,15 +12,22 @@ class PostComment extends Component {
         <textarea
           name="txtComment"
           id="txtComment"
-          placeholder="What are your thoughts?"
+          placeholder={
+            this.props.loggedInUser
+              ? "What are your thoughts?"
+              : "Please login or sign up to post a comment."
+          }
           className="form-control"
           value={this.state.commentBody}
           onChange={this.changeHandler}
+          disabled={!this.props.loggedInUser}
+          required
         />
         <Button
           className="btn btn-outline-info"
           onClick={this.postComment}
           buttonText="Submit"
+          disabled={!this.props.loggedInUser}
         />
       </div>
     );
@@ -32,10 +39,15 @@ class PostComment extends Component {
   postComment = e => {
     e.preventDefault();
 
-    let newComment = { author: "rogersop", body: this.state.commentBody };
-    // console.log(newComment);
+    let newComment = {
+      author: this.props.loggedInUser.username,
+      body: this.state.commentBody
+    };
+
     postComment(newComment, this.props.articleID).then(comment => {
-      console.log(comment);
+      // this.props.commentAdder(comment);
+      this.setState({ commentBody: "" });
+      this.props.commentListUpdater(this.props.articleID);
     });
   };
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "@reach/router";
 import Button from "../utils/utils";
 
-const Header = () => {
+const Header = props => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -27,12 +27,37 @@ const Header = () => {
             </Link>
           </li>
         </ul>
+
         <div className="float-right">
-          <Button
-            className="btn btn-outline-info"
-            onClick={e => this.handleClick(e)}
-            buttonText="Log In"
-          />
+          {!props.loggedInUser ? (
+            <Link className="btn btn-outline-info" to="/login">
+              Login
+            </Link>
+          ) : (
+            <React.Fragment>
+              <label className="badge badge-pill badge-success mr-2">
+                {props.loggedInUser.username}
+              </label>
+              {props.loggedInUser.avatar_url ? (
+                <img
+                  className="mr-2 rounded-circle "
+                  width="50"
+                  height="50"
+                  src={props.loggedInUser.avatar_url}
+                />
+              ) : (
+                <div className="mr-2 rounded-circle badge-success badge">
+                  <i className="far fa-user fa-2x" />
+                </div>
+              )}
+
+              <Button
+                className="btn btn-outline-info"
+                onClick={props.logoutHandler}
+                buttonText="Logout"
+              />
+            </React.Fragment>
+          )}
         </div>
       </nav>
     </div>

@@ -37,3 +37,34 @@ export const postComment = (comment, article_id) => {
       return comment;
     });
 };
+
+export const getCommentsByArticleId = article_id => {
+  return axios
+    .get(`${url}/articles/${article_id}/comments?sort_by=votes`)
+    .then(({ data: { comments } }) => {
+      return comments;
+    });
+};
+
+export const getUserByUsername = username => {
+  return axios.get(`${url}/users/${username}`).then(({ data: { user } }) => {
+    return user;
+  });
+};
+
+export const postUser = newUser => {
+  return axios.post(`${url}/users`, newUser).then(({ data: { user } }) => {
+    return user;
+  });
+};
+
+export const patchVote = (direction, id, componentType) => {
+  return axios
+    .patch(`${url}/${componentType}/${id}`, direction)
+    .then(({ data: { object } }) => {
+      return object;
+    })
+    .catch(res => {
+      console.log(res);
+    });
+};

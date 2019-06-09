@@ -21,9 +21,9 @@ class ArticlesList extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.topic !== this.state.topic ||
-      prevState.order !== this.state.order ||
-      this.state.sort_by !== prevState.sort_by ||
-      this.state.author !== prevState.author
+      prevState.sortOrder !== this.state.sortOrder ||
+      prevState.sortBy !== this.state.sortBy ||
+      prevState.author !== this.state.author
     ) {
       const query = {
         topic: this.state.topic,
@@ -52,7 +52,9 @@ class ArticlesList extends Component {
               <ArticleCard
                 article={article}
                 key={article.article_id}
+                loggedInUser={this.props.loggedInUser}
                 fullArticle={false}
+                articleUpdater={this.articleUpdater}
               />
             );
           })}
@@ -61,16 +63,23 @@ class ArticlesList extends Component {
     );
   }
   topicHandler = e => {
-    this.setState({ topic: e.target.value });
+    this.setState({ topic: e.target.value != "-1" ? e.target.value : null });
   };
   sortOrderHandler = e => {
-    this.setState({ sortOrder: e.target.value });
+    this.setState({
+      sortOrder: e.target.value
+    });
   };
   sortByHandler = e => {
-    this.setState({ sortBy: e.target.value });
+    this.setState({ sortBy: e.target.value != "-1" ? e.target.value : null });
   };
   authorHandler = e => {
-    this.setState({ author: e.target.value });
+    this.setState({ author: e.target.value != "-1" ? e.target.value : null });
+  };
+  articleUpdater = () => {
+    getArticleList().then(articles => {
+      this.setState({ articles: articles });
+    });
   };
 }
 export default ArticlesList;

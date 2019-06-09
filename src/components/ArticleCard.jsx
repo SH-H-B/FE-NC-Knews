@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "@reach/router";
+import Vote from "./Vote";
 
-const ArticleCard = ({ article, fullArticle }) => {
+//TODO: refactor contitonal rendering to inline
+
+const ArticleCard = ({
+  article,
+  fullArticle,
+  loggedInUser,
+  articleUpdater
+}) => {
   let articleBody, articleHeader, articleTitle, readMoreLink;
 
   if (fullArticle) {
@@ -15,7 +23,12 @@ const ArticleCard = ({ article, fullArticle }) => {
     articleHeader = <div className="card-header">{article.topic}</div>;
     articleTitle = <h5 className="card-title">{article.title}</h5>;
     readMoreLink = (
-      <Link to={`/articles/${article.article_id}`}>Read more</Link>
+      <Link
+        to={`/articles/${article.article_id}`}
+        className="btn btn-info float-right "
+      >
+        Read more
+      </Link>
     );
   }
 
@@ -27,7 +40,7 @@ const ArticleCard = ({ article, fullArticle }) => {
 
         {articleBody}
         <div className="clear-fix" />
-        {readMoreLink}
+
         <small className="text-muted font-italic">
           <footer className="blockquote-footer float-right">
             Posted by {article.author}
@@ -41,11 +54,18 @@ const ArticleCard = ({ article, fullArticle }) => {
             <div className="float-left">
               <i className="fas fa-comment-alt mr-1" />
               {article.comment_count} Comments
-              <i className="fas fa-thumbs-up mr-1 ml-4 " />
-              {article.votes} Votes
+              <Vote
+                loggedInUser={loggedInUser}
+                votesCount={article.votes}
+                article_id={article.article_id}
+                updater={articleUpdater}
+                componentType="articles"
+              />
             </div>
           </small>
         </div>
+        <br />
+        {readMoreLink}
       </div>
     </div>
   );
