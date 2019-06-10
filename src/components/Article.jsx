@@ -1,19 +1,22 @@
 import React, { Component } from "react";
+
 import Comments from "./Comments";
 import { getSingleArticle } from "../api";
 import ArticleCard from "./ArticleCard";
 import { navigate } from "@reach/router/lib/history";
-import Errors from "./components/Errors";
+import Errors from "./Errors";
 
 class Article extends Component {
   state = { article: null };
 
   componentDidMount() {
-    getSingleArticle(this.props.article_id).then(article => {
-      this.setState({ article: article }).catch(error => {
+    getSingleArticle(this.props.article_id)
+      .then(article => {
+        this.setState({ article: article });
+      })
+      .catch(error => {
         navigate("/error");
       });
-    });
   }
 
   articleUpdater = artilcleID => {
@@ -41,9 +44,10 @@ class Article extends Component {
           />
         </div>
       );
-    } else {
-      return <h1>loading...</h1>;
     }
+    // } else {
+    //   return <h1>loading...</h1>;
+    // }
   }
 }
 

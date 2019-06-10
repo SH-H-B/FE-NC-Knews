@@ -1,3 +1,8 @@
+//all files need refactoring
+// post article and topic is left
+// error handling left
+// netlify and readme
+
 import React, { Component } from "react";
 import { Router } from "@reach/router";
 import Header from "./components/Header";
