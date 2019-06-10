@@ -32,7 +32,7 @@ class ArticlesList extends Component {
         author: this.state.author
       };
       getArticleList(query).then(articles => {
-        this.setState({ articles: articles });
+        this.setState({ articles: articles }).catch();
       });
     }
   }

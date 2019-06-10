@@ -1,14 +1,30 @@
 import React from "react";
 import Vote from "./Vote";
+import { deleteComment } from "../api";
+import Button from "../utils/utils";
 
 const CommentCard = ({ comment, loggedInUser, commentListUpdater }) => {
+  const deleteCommentHandler = e => {
+    e.preventDefault();
+    deleteComment(comment.comment_id).then(() => {
+      commentListUpdater(comment.article_id);
+    });
+  };
   return (
     <div className=" container card border-dark mt-3">
       <p className="card-text">{comment.body}</p>
+
       <small className="text-muted font-italic">
         <footer className="blockquote-footer float-right">
           Posted by {comment.author}
           <cite title="Source Title">, at {comment.created_at}</cite>
+          {loggedInUser != null && loggedInUser.username === comment.author && (
+            <Button
+              className="btn btn-outline-danger"
+              buttonText="Delete"
+              onClick={deleteCommentHandler}
+            />
+          )}
         </footer>{" "}
       </small>
       <div className="card-text">

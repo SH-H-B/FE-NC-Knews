@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import ArticlesList from "./components/ArticlesList";
 import Article from "./components/Article";
 import Login from "./components/Login";
+import Errors from "./components/Errors";
 
 class App extends Component {
   state = { loggedInUser: null };
@@ -21,6 +22,7 @@ class App extends Component {
             loggedInUser={this.state.loggedInUser}
           />
           <Login path="/login" loginStateChanger={this.loginStateChanger} />
+          <Errors path="/error" />
         </Router>
       </div>
     );

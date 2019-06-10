@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import Comments from "./Comments";
 import { getSingleArticle } from "../api";
 import ArticleCard from "./ArticleCard";
+import { navigate } from "@reach/router/lib/history";
+import Errors from "./components/Errors";
 
 class Article extends Component {
   state = { article: null };
 
   componentDidMount() {
     getSingleArticle(this.props.article_id).then(article => {
-      this.setState({ article: article });
+      this.setState({ article: article }).catch(error => {
+        navigate("/error");
+      });
     });
   }
 

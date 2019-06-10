@@ -1,6 +1,8 @@
 import React from "react";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import Vote from "./Vote";
+import Button from "../utils/utils";
+import { deleteArticle } from "../api";
 
 //TODO: refactor contitonal rendering to inline
 
@@ -31,6 +33,12 @@ const ArticleCard = ({
       </Link>
     );
   }
+  const deleteArticleHandler = e => {
+    e.preventDefault();
+    deleteArticle(article.article_id).then(() => {
+      fullArticle ? navigate("/") : articleUpdater(article.article_id);
+    });
+  };
 
   return (
     <div className="card border-dark mt-3">
@@ -39,6 +47,14 @@ const ArticleCard = ({
         {articleTitle}
 
         {articleBody}
+        {loggedInUser != null && loggedInUser.username === article.author && (
+          <Button
+            className="btn btn-outline-danger"
+            buttonText="Delete"
+            onClick={deleteArticleHandler}
+          />
+        )}
+
         <div className="clear-fix" />
 
         <small className="text-muted font-italic">
