@@ -40,7 +40,7 @@ export const postComment = (comment, article_id) => {
 
 export const getCommentsByArticleId = article_id => {
   return axios
-    .get(`${url}/articles/${article_id}/comments?sort_by=votes`)
+    .get(`${url}/articles/${article_id}/comments`)
     .then(({ data: { comments } }) => {
       return comments;
     });

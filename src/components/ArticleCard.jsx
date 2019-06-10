@@ -44,9 +44,7 @@ const ArticleCard = ({
         <small className="text-muted font-italic">
           <footer className="blockquote-footer float-right">
             Posted by {article.author}
-            <cite title="Source Title">
-              , at {new Date(article.created_at)}
-            </cite>
+            <cite title="Source Title">, at {article.created_at}</cite>
           </footer>{" "}
         </small>
         <div className="card-text">
