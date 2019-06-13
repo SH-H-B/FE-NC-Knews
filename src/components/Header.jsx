@@ -6,7 +6,7 @@ const Header = props => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           <i className="far fa-lg fa-newspaper mr-2" />
           Northcoders Daily Knews
         </a>
