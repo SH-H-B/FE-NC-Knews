@@ -10,6 +10,7 @@ import ArticlesList from "./components/ArticlesList";
 import Article from "./components/Article";
 import Login from "./components/Login";
 import Errors from "./components/Errors";
+import Topics from "./components/Topics";
 
 class App extends Component {
   state = { loggedInUser: null };
@@ -26,6 +27,7 @@ class App extends Component {
             path="/articles/:article_id"
             loggedInUser={this.state.loggedInUser}
           />
+          <Topics path="/topics" loggedInUser={this.state.loggedInUser} />
           <Login path="/login" loginStateChanger={this.loginStateChanger} />
           <Errors path="/error" />
         </Router>
