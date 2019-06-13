@@ -44,10 +44,9 @@ class Article extends Component {
           />
         </div>
       );
+    } else {
+      return <h1>loading...</h1>;
     }
-    // } else {
-    //   return <h1>loading...</h1>;
-    // }
   }
 }
 

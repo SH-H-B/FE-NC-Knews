@@ -37,7 +37,7 @@ class Vote extends Component {
     this.state.thumbsUpClicked === false
       ? patchVote(
           { inc_votes: this.state.thumbsDownClicked ? 2 : 1 },
-          this.props.componentType == "articles"
+          this.props.componentType === "articles"
             ? this.props.article_id
             : this.props.comment_id,
           this.props.componentType
@@ -52,7 +52,7 @@ class Vote extends Component {
         })
       : patchVote(
           { inc_votes: this.state.thumbsDownClicked ? -2 : -1 },
-          this.props.componentType == "articles"
+          this.props.componentType === "articles"
             ? this.props.article_id
             : this.props.comment_id,
           this.props.componentType
@@ -73,7 +73,7 @@ class Vote extends Component {
     this.state.thumbsDownClicked === false
       ? patchVote(
           { inc_votes: this.state.thumbsUpClicked ? -2 : -1 },
-          this.props.componentType == "articles"
+          this.props.componentType === "articles"
             ? this.props.article_id
             : this.props.comment_id,
           this.props.componentType
@@ -88,7 +88,7 @@ class Vote extends Component {
         })
       : patchVote(
           { inc_votes: this.state.thumbsUpClicked ? 2 : 1 },
-          this.props.componentType == "articles"
+          this.props.componentType === "articles"
             ? this.props.article_id
             : this.props.comment_id,
           this.props.componentType

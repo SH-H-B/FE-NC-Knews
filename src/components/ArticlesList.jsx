@@ -32,7 +32,7 @@ class ArticlesList extends Component {
         author: this.state.author
       };
       getArticleList(query).then(articles => {
-        this.setState({ articles: articles }).catch();
+        this.setState({ articles: articles });
       });
     }
   }
@@ -63,7 +63,7 @@ class ArticlesList extends Component {
     );
   }
   topicHandler = e => {
-    this.setState({ topic: e.target.value != "-1" ? e.target.value : null });
+    this.setState({ topic: e.target.value !== "-1" ? e.target.value : null });
   };
   sortOrderHandler = e => {
     this.setState({
@@ -71,10 +71,10 @@ class ArticlesList extends Component {
     });
   };
   sortByHandler = e => {
-    this.setState({ sortBy: e.target.value != "-1" ? e.target.value : null });
+    this.setState({ sortBy: e.target.value !== "-1" ? e.target.value : null });
   };
   authorHandler = e => {
-    this.setState({ author: e.target.value != "-1" ? e.target.value : null });
+    this.setState({ author: e.target.value !== "-1" ? e.target.value : null });
   };
   articleUpdater = () => {
     getArticleList().then(articles => {

@@ -44,6 +44,7 @@ const Header = props => {
                   width="50"
                   height="50"
                   src={props.loggedInUser.avatar_url}
+                  alt="username"
                 />
               ) : (
                 <div className="mr-2 rounded-circle badge-success badge">
