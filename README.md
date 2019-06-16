@@ -7,7 +7,7 @@ This project is a news/articles web application that takes inspiration from site
 The link below will direct you to deployed version of the web-app, hosted on Netlify:
 
 ```
-http://northcoders-daily-news.netlify.com
+https://northcoders-daily-news.netlify.com
 
 ```
 
@@ -96,6 +96,6 @@ netlify deploy
 
 ## Links
 
-- http://northcoders-daily-news.netlify.com - Live Deployed Version of Web-App
+- https://northcoders-daily-news.netlify.com - Live Deployed Version of Web-App
 - https://github.com/SH-H-B/BE2-NC-Knews - Github page for back-end side of project
 - https://shiva-knews.herokuapp.com/api - API endpoint
