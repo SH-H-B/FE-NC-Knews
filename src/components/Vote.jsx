@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Button from "../utils/utils";
+import { Button } from "../utils/utils";
 import { patchVote } from "../api";
+import { navigate } from "@reach/router";
 
 class Vote extends Component {
   state = {
@@ -41,30 +42,50 @@ class Vote extends Component {
             ? this.props.article_id
             : this.props.comment_id,
           this.props.componentType
-        ).then(article => {
-          this.setState({
-            thumbsUpClicked: true,
-            thumbsDownClicked: false,
-            buttonUpColor: " text-success",
-            buttonDownColor: ""
-          });
-          this.props.updater(this.props.article_id);
-        })
+        )
+          .then(article => {
+            this.setState({
+              thumbsUpClicked: true,
+              thumbsDownClicked: false,
+              buttonUpColor: " text-success",
+              buttonDownColor: ""
+            });
+            this.props.updater(this.props.article_id);
+          })
+          .catch(({ response }) => {
+            navigate("/error", {
+              state: {
+                code: response.data.status,
+                message: response.data.msg
+              },
+              replace: true
+            });
+          })
       : patchVote(
           { inc_votes: this.state.thumbsDownClicked ? -2 : -1 },
           this.props.componentType === "articles"
             ? this.props.article_id
             : this.props.comment_id,
           this.props.componentType
-        ).then(article => {
-          this.setState({
-            thumbsUpClicked: false,
-            thumbsDownClicked: false,
-            buttonUpColor: "",
-            buttonDownColor: ""
+        )
+          .then(article => {
+            this.setState({
+              thumbsUpClicked: false,
+              thumbsDownClicked: false,
+              buttonUpColor: "",
+              buttonDownColor: ""
+            });
+            this.props.updater(this.props.article_id);
+          })
+          .catch(({ response }) => {
+            navigate("/error", {
+              state: {
+                code: response.data.status,
+                message: response.data.msg
+              },
+              replace: true
+            });
           });
-          this.props.updater(this.props.article_id);
-        });
   };
 
   voteDownHandler = e => {
@@ -77,31 +98,51 @@ class Vote extends Component {
             ? this.props.article_id
             : this.props.comment_id,
           this.props.componentType
-        ).then(article => {
-          this.setState({
-            thumbsDownClicked: true,
-            thumbsUpClicked: false,
-            buttonDownColor: " text-danger",
-            buttonUpColor: ""
-          });
-          this.props.updater(this.props.article_id);
-        })
+        )
+          .then(article => {
+            this.setState({
+              thumbsDownClicked: true,
+              thumbsUpClicked: false,
+              buttonDownColor: " text-danger",
+              buttonUpColor: ""
+            });
+            this.props.updater(this.props.article_id);
+          })
+          .catch(({ response }) => {
+            navigate("/error", {
+              state: {
+                code: response.data.status,
+                message: response.data.msg
+              },
+              replace: true
+            });
+          })
       : patchVote(
           { inc_votes: this.state.thumbsUpClicked ? 2 : 1 },
           this.props.componentType === "articles"
             ? this.props.article_id
             : this.props.comment_id,
           this.props.componentType
-        ).then(article => {
-          this.setState({
-            thumbsDownClicked: false,
-            thumbsUpClicked: false,
-            buttonDownColor: "",
-            buttonUpColor: ""
-          });
+        )
+          .then(article => {
+            this.setState({
+              thumbsDownClicked: false,
+              thumbsUpClicked: false,
+              buttonDownColor: "",
+              buttonUpColor: ""
+            });
 
-          this.props.updater(this.props.article_id);
-        });
+            this.props.updater(this.props.article_id);
+          })
+          .catch(({ response }) => {
+            navigate("/error", {
+              state: {
+                code: response.data.status,
+                message: response.data.msg
+              },
+              replace: true
+            });
+          });
   };
 }
 

@@ -10,10 +10,18 @@ import ArticlesList from "./components/ArticlesList";
 import Article from "./components/Article";
 import Login from "./components/Login";
 import Errors from "./components/Errors";
-import Topics from "./components/Topics";
+import Author from "./components/Author";
 
 class App extends Component {
   state = { loggedInUser: null };
+
+  componentDidMount() {
+    JSON.parse(localStorage.getItem("loggedInUser")) !== null &&
+      this.setState({
+        loggedInUser: JSON.parse(localStorage.getItem("loggedInUser"))
+      });
+  }
+
   render() {
     return (
       <div className="App">
@@ -27,18 +35,22 @@ class App extends Component {
             path="/articles/:article_id"
             loggedInUser={this.state.loggedInUser}
           />
-          <Topics path="/topics" loggedInUser={this.state.loggedInUser} />
+          <Author
+            path="/author/:author"
+            loggedInUser={this.state.loggedInUser}
+          />
           <Login path="/login" loginStateChanger={this.loginStateChanger} />
           <Errors path="/error" />
+          <Errors path="/*" />
         </Router>
       </div>
     );
   }
 
   loginStateChanger = user => {
-    this.setState({ loggedInUser: user });
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-    localStorage.setItem("loggedInUser", user);
+    this.setState({ loggedInUser: user });
   };
   logoutHandler = e => {
     e.preventDefault();

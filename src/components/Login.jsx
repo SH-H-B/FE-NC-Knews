@@ -84,10 +84,20 @@ class Login extends Component {
   };
   loginHandler = e => {
     e.preventDefault();
-    getUserByUsername(this.state.loginUsernameInput).then(user => {
-      this.props.loginStateChanger(user);
-      navigate("/");
-    });
+    getUserByUsername(this.state.loginUsernameInput)
+      .then(user => {
+        this.props.loginStateChanger(user);
+        navigate("/");
+      })
+      .catch(({ response }) => {
+        navigate("/error", {
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          },
+          replace: true
+        });
+      });
   };
   registerNameChangeHandler = e => {
     this.setState({ nameInput: e.target.value });
@@ -113,21 +123,39 @@ class Login extends Component {
       })
       .catch(({ response }) => {
         if (response.status === 404) {
-          postUser(newUser).then(user => {
-            this.props.loginStateChanger(user);
+          postUser(newUser)
+            .then(user => {
+              this.props.loginStateChanger(user);
 
-            this.setState({
-              nameInput: "",
-              registerUsernameInput: ""
+              this.setState({
+                nameInput: "",
+                registerUsernameInput: ""
+              });
+              Swal.fire({
+                type: "success",
+                title:
+                  "Your account has been successfully created you are now logged in",
+                showConfirmButton: false,
+                timer: 3000
+              });
+              navigate("/");
+            })
+            .catch(({ response }) => {
+              navigate("/error", {
+                state: {
+                  code: response.data.status,
+                  message: response.data.msg
+                },
+                replace: true
+              });
             });
-            Swal.fire({
-              type: "success",
-              title:
-                "Your account has been successfully created you are now logged in",
-              showConfirmButton: false,
-              timer: 3000
-            });
-            navigate("/");
+        } else {
+          navigate("/error", {
+            state: {
+              code: response.data.status,
+              message: response.data.msg
+            },
+            replace: true
           });
         }
       });

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@reach/router";
-import Button from "../utils/utils";
+import { Button } from "../utils/utils";
 
 const Header = props => {
   return (
@@ -17,11 +17,6 @@ const Header = props => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/topics">
-              Topics
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link className="nav-link" to="/">
               Create Article
             </Link>
@@ -35,22 +30,24 @@ const Header = props => {
             </Link>
           ) : (
             <React.Fragment>
-              <label className="badge badge-pill badge-success mr-2">
-                {props.loggedInUser.username}
-              </label>
-              {props.loggedInUser.avatar_url ? (
-                <img
-                  className="mr-2 rounded-circle "
-                  width="50"
-                  height="50"
-                  src={props.loggedInUser.avatar_url}
-                  alt="username"
-                />
-              ) : (
-                <div className="mr-2 rounded-circle badge-success badge">
-                  <i className="far fa-user fa-2x" />
-                </div>
-              )}
+              <Link to={`/author/${props.loggedInUser.username}`}>
+                <label className="badge badge-pill badge-success mr-2">
+                  {props.loggedInUser.username}
+                </label>
+                {props.loggedInUser.avatar_url ? (
+                  <img
+                    className="mr-2 rounded-circle "
+                    width="50"
+                    height="50"
+                    src={props.loggedInUser.avatar_url}
+                    alt="username"
+                  />
+                ) : (
+                  <div className="mr-2 rounded-circle badge-success badge">
+                    <i className="far fa-user fa-2x" />
+                  </div>
+                )}
+              </Link>
 
               <Button
                 className="btn btn-outline-info"

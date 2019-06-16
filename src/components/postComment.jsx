@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Button from "../utils/utils";
+import { Button } from "../utils/utils";
 import { postComment } from "../api";
+import { navigate } from "@reach/router";
 
 class PostComment extends Component {
   state = {
@@ -44,11 +45,20 @@ class PostComment extends Component {
       body: this.state.commentBody
     };
 
-    postComment(newComment, this.props.articleID).then(comment => {
-      // this.props.commentAdder(comment);
-      this.setState({ commentBody: "" });
-      this.props.commentListUpdater(this.props.articleID);
-    });
+    postComment(newComment, this.props.articleID)
+      .then(comment => {
+        this.setState({ commentBody: "" });
+        this.props.commentListUpdater(this.props.articleID);
+      })
+      .catch(({ response }) => {
+        navigate("/error", {
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          },
+          replace: true
+        });
+      });
   };
 }
 

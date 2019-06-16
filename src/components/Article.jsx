@@ -3,30 +3,46 @@ import React, { Component } from "react";
 import Comments from "./Comments";
 import { getSingleArticle } from "../api";
 import ArticleCard from "./ArticleCard";
-import { navigate } from "@reach/router/lib/history";
-import Errors from "./Errors";
+import { navigate } from "@reach/router";
+import { Loading } from "../utils/utils";
 
 class Article extends Component {
-  state = { article: null };
+  state = { article: null, loading: true };
 
   componentDidMount() {
     getSingleArticle(this.props.article_id)
       .then(article => {
-        this.setState({ article: article });
+        this.setState({ article: article, loading: false });
       })
-      .catch(error => {
-        navigate("/error");
+      .catch(({ response }) => {
+        navigate("/error", {
+          replace: true,
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          }
+        });
       });
   }
 
   articleUpdater = artilcleID => {
-    getSingleArticle(artilcleID).then(article => {
-      this.setState({ article: article });
-    });
+    getSingleArticle(artilcleID)
+      .then(article => {
+        this.setState({ article: article });
+      })
+      .catch(({ response }) => {
+        navigate("/error", {
+          replace: true,
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          }
+        });
+      });
   };
 
   render() {
-    if (this.state.article) {
+    if (!this.state.loading) {
       return (
         <div className="container">
           <ArticleCard
@@ -45,7 +61,7 @@ class Article extends Component {
         </div>
       );
     } else {
-      return <h1>loading...</h1>;
+      return <Loading />;
     }
   }
 }

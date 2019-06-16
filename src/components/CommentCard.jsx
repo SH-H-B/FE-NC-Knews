@@ -1,14 +1,25 @@
 import React from "react";
 import Vote from "./Vote";
 import { deleteComment } from "../api";
-import Button from "../utils/utils";
+import { navigate } from "@reach/router";
+import { Button } from "../utils/utils";
 
 const CommentCard = ({ comment, loggedInUser, commentListUpdater }) => {
   const deleteCommentHandler = e => {
     e.preventDefault();
-    deleteComment(comment.comment_id).then(() => {
-      commentListUpdater(comment.article_id);
-    });
+    deleteComment(comment.comment_id)
+      .then(() => {
+        commentListUpdater(comment.article_id);
+      })
+      .catch(({ response }) => {
+        navigate("/error", {
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          },
+          replace: true
+        });
+      });
   };
   return (
     <div className=" container card border-dark mt-3">

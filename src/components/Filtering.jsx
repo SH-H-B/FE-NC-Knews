@@ -1,16 +1,37 @@
 import React, { Component } from "react";
 import { getTopicList, getAuthorList } from "../api";
+import { navigate } from "@reach/router";
 
 class Filtering extends Component {
   state = { topics: [], users: [] };
 
   componentDidMount() {
-    getTopicList().then(topics => {
-      this.setState({ topics: topics });
-    });
-    getAuthorList().then(users => {
-      this.setState({ users: users });
-    });
+    getTopicList()
+      .then(topics => {
+        this.setState({ topics: topics });
+      })
+      .catch(({ response }) => {
+        navigate("/error", {
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          },
+          replace: true
+        });
+      });
+    getAuthorList()
+      .then(users => {
+        this.setState({ users: users });
+      })
+      .catch(({ response }) => {
+        navigate("/error", {
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          },
+          replace: true
+        });
+      });
   }
 
   render() {

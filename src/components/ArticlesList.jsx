@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { getArticleList } from "../api";
 import ArticleCard from "./ArticleCard";
 import Filtering from "./Filtering";
+import { Loading } from "../utils/utils";
+import { navigate } from "@reach/router";
 
 class ArticlesList extends Component {
   state = {
@@ -13,9 +15,19 @@ class ArticlesList extends Component {
   };
 
   componentDidMount() {
-    getArticleList().then(articles => {
-      this.setState({ articles: articles });
-    });
+    getArticleList()
+      .then(articles => {
+        this.setState({ articles: articles });
+      })
+      .catch(({ response }) => {
+        navigate("/error", {
+          replace: true,
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          }
+        });
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,30 +49,34 @@ class ArticlesList extends Component {
     }
   }
   render() {
-    return (
-      <React.Fragment>
-        <div className="container">
-          <Filtering
-            authorHandler={this.authorHandler}
-            topicHandler={this.topicHandler}
-            sortByHandler={this.sortByHandler}
-            sortOrderHandler={this.sortOrderHandler}
-          />
+    if (this.state.articles.length !== 0) {
+      return (
+        <React.Fragment>
+          <div className="container">
+            <Filtering
+              authorHandler={this.authorHandler}
+              topicHandler={this.topicHandler}
+              sortByHandler={this.sortByHandler}
+              sortOrderHandler={this.sortOrderHandler}
+            />
 
-          {this.state.articles.map(article => {
-            return (
-              <ArticleCard
-                article={article}
-                key={article.article_id}
-                loggedInUser={this.props.loggedInUser}
-                fullArticle={false}
-                articleUpdater={this.articleUpdater}
-              />
-            );
-          })}
-        </div>
-      </React.Fragment>
-    );
+            {this.state.articles.map(article => {
+              return (
+                <ArticleCard
+                  article={article}
+                  key={article.article_id}
+                  loggedInUser={this.props.loggedInUser}
+                  fullArticle={false}
+                  articleUpdater={this.articleUpdater}
+                />
+              );
+            })}
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      return <Loading />;
+    }
   }
   topicHandler = e => {
     this.setState({ topic: e.target.value !== "-1" ? e.target.value : null });

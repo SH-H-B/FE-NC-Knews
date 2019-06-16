@@ -1,10 +1,8 @@
 import React from "react";
 import { Link, navigate } from "@reach/router";
 import Vote from "./Vote";
-import Button from "../utils/utils";
+import { Button } from "../utils/utils";
 import { deleteArticle } from "../api";
-
-//TODO: refactor contitonal rendering to inline
 
 const ArticleCard = ({
   article,
@@ -35,9 +33,19 @@ const ArticleCard = ({
   }
   const deleteArticleHandler = e => {
     e.preventDefault();
-    deleteArticle(article.article_id).then(() => {
-      fullArticle ? navigate("/") : articleUpdater(article.article_id);
-    });
+    deleteArticle(article.article_id)
+      .then(() => {
+        fullArticle ? navigate("/") : articleUpdater(article.article_id);
+      })
+      .catch(({ response }) => {
+        navigate("/error", {
+          state: {
+            code: response.data.status,
+            message: response.data.msg
+          },
+          replace: true
+        });
+      });
   };
 
   return (
@@ -59,7 +67,8 @@ const ArticleCard = ({
 
         <small className="text-muted font-italic">
           <footer className="blockquote-footer float-right">
-            Posted by {article.author}
+            Posted by{" "}
+            <Link to={`/author/${article.author}`}>{article.author}</Link>
             <cite title="Source Title">, at {article.created_at}</cite>
           </footer>{" "}
         </small>
