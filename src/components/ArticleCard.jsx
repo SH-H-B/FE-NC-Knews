@@ -3,6 +3,7 @@ import { Link, navigate } from "@reach/router";
 import Vote from "./Vote";
 import { Button } from "../utils/utils";
 import { deleteArticle } from "../api";
+import Swal from "sweetalert2";
 
 const ArticleCard = ({
   article,
@@ -25,7 +26,7 @@ const ArticleCard = ({
     readMoreLink = (
       <Link
         to={`/articles/${article.article_id}`}
-        className="btn btn-info float-right "
+        className="btn btn-warning float-right "
       >
         Read more
       </Link>
@@ -36,6 +37,12 @@ const ArticleCard = ({
     deleteArticle(article.article_id)
       .then(() => {
         fullArticle ? navigate("/") : articleUpdater(article.article_id);
+        Swal.fire({
+          type: "error",
+          title: "Your article has been deleted!",
+          showConfirmButton: false,
+          timer: 3000
+        });
       })
       .catch(({ response }) => {
         navigate("/error", {
@@ -49,19 +56,12 @@ const ArticleCard = ({
   };
 
   return (
-    <div className="card border-dark mt-3">
+    <div className="card border-dark mt-3 ">
       {articleHeader}
       <div className="card-body">
         {articleTitle}
 
         {articleBody}
-        {loggedInUser != null && loggedInUser.username === article.author && (
-          <Button
-            className="btn btn-outline-danger"
-            buttonText="Delete"
-            onClick={deleteArticleHandler}
-          />
-        )}
 
         <div className="clear-fix" />
 
@@ -88,6 +88,15 @@ const ArticleCard = ({
           </small>
         </div>
         <br />
+
+        {loggedInUser != null && loggedInUser.username === article.author && (
+          <Button
+            className="btn btn-outline-danger float-left"
+            buttonText="Delete"
+            onClick={deleteArticleHandler}
+          />
+        )}
+
         {readMoreLink}
       </div>
     </div>

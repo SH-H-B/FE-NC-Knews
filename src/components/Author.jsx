@@ -4,14 +4,14 @@ import ArticleCard from "./ArticleCard";
 import { Loading } from "../utils/utils";
 import { navigate } from "@reach/router";
 class Author extends Component {
-  state = { user: {}, articlesByAuthor: [], isLoading: true };
+  state = { user: {}, articlesByAuthor: [], loading: true };
 
   componentDidMount() {
     getUserByUsername(this.props.author)
       .then(user => {
         this.setState({ user: user });
         getArticleList({ author: this.props.author }).then(articles => {
-          this.setState({ articlesByAuthor: articles, isLoading: false });
+          this.setState({ articlesByAuthor: articles, loading: false });
         });
       })
       .catch(({ response }) => {
@@ -26,7 +26,7 @@ class Author extends Component {
   }
 
   render() {
-    if (!this.state.isLoading)
+    if (!this.state.loading)
       return (
         <React.Fragment>
           <div className="container col-6 mt-5">

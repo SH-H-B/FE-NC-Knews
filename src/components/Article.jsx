@@ -44,7 +44,7 @@ class Article extends Component {
   render() {
     if (!this.state.loading) {
       return (
-        <div className="container">
+        <div className="container mb-4">
           <ArticleCard
             article={this.state.article}
             key={this.state.article.article_id}

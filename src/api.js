@@ -63,9 +63,6 @@ export const patchVote = (direction, id, componentType) => {
     .patch(`${url}/${componentType}/${id}`, direction)
     .then(({ data: { object } }) => {
       return object;
-    })
-    .catch(res => {
-      console.log(res);
     });
 };
 
@@ -78,7 +75,9 @@ export const deleteArticle = article_id => {
 };
 
 export const deleteComment = comment_id => {
-  return axios.delete(`${url}/comments/${comment_id}`).then(({ data: {} }) => {
-    return {};
-  });
+  return axios
+    .delete(`${url}/comments/${comment_id}`)
+    .then(({ data: { comment } }) => {
+      return comment;
+    });
 };

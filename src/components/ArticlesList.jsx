@@ -11,13 +11,14 @@ class ArticlesList extends Component {
     sortOrder: "asc",
     topic: null,
     sortBy: "created_at",
-    author: null
+    author: null,
+    loading: true
   };
 
   componentDidMount() {
     getArticleList()
       .then(articles => {
-        this.setState({ articles: articles });
+        this.setState({ articles: articles, loading: false });
       })
       .catch(({ response }) => {
         navigate("/error", {
@@ -43,16 +44,26 @@ class ArticlesList extends Component {
         sort_by: this.state.sortBy,
         author: this.state.author
       };
-      getArticleList(query).then(articles => {
-        this.setState({ articles: articles });
-      });
+      getArticleList(query)
+        .then(articles => {
+          this.setState({ articles: articles, loading: false });
+        })
+        .catch(({ response }) => {
+          navigate("/error", {
+            replace: true,
+            state: {
+              code: response.data.status,
+              message: response.data.msg
+            }
+          });
+        });
     }
   }
   render() {
-    if (this.state.articles.length !== 0) {
+    if (!this.state.loading) {
       return (
         <React.Fragment>
-          <div className="container">
+          <div className="container mb-4">
             <Filtering
               authorHandler={this.authorHandler}
               topicHandler={this.topicHandler}

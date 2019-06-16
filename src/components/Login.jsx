@@ -32,7 +32,7 @@ class Login extends Component {
                 />
               </div>
 
-              <button type="submit" className="btn btn-outline-info">
+              <button type="submit" className="btn btn-warning">
                 Login
               </button>
             </div>
@@ -69,7 +69,7 @@ class Login extends Component {
                 />
               </div>
               {this.state.message}
-              <button type="submit" className="btn btn-outline-info">
+              <button type="submit" className="btn btn-warning">
                 Sign up
               </button>
               <div className="clearfix" />

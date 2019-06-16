@@ -6,12 +6,12 @@ import { Loading } from "../utils/utils";
 import { navigate } from "@reach/router";
 
 class Comments extends Component {
-  state = { comments: [] };
+  state = { comments: [], loading: true };
 
   componentDidMount() {
     getCommentsByArticleId(this.props.articleID)
       .then(comments => {
-        this.setState({ comments: comments });
+        this.setState({ comments: comments, loading: false });
       })
       .catch(({ response }) => {
         navigate("/error", {
@@ -42,7 +42,7 @@ class Comments extends Component {
   };
 
   render() {
-    if (this.state.comments.length !== 0) {
+    if (!this.state.loading) {
       return (
         <div>
           <PostComment

@@ -1,68 +1,101 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Northcoders Daily News
 
-## Available Scripts
+This project is a news/articles web application that takes inspiration from site like Reddit.
 
-In the project directory, you can run:
+## Using the Web-App
 
-### `npm start`
+The link below will direct you to deployed version of the web-app, hosted on Netlify:
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+http://northcoders-daily-news.netlify.com
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```
 
-### `npm test`
+On the web app as a non-logged in user you may view news articles, comments. You may also create an account from the Login page, doing so will grant you access to post like and comment on existing articles as well as posting your own.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+As a non-logged in user you could:
+View and filter a list of articles, also able to view a single article with its comments.
+Register for an account.
 
-### `npm run build`
+As a registered/logged in user as well as above you could:
+Post a comment/article,
+Delete a your own article/comment
+Vote on articles/comments
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Follow these instructions in order to get a copy of the project up and running on your local machine for development and testing purposes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installing
 
-### `npm run eject`
+1. First of all fork this project to your own repo.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Clone the repo remotely by executing this command:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+git clone <Insert Github Repo Link>
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Change directory to the local repo file.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+4. Running the following command will install the dependencies:
 
-## Learn More
+```
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. The dependencies are required for development purposes, for convenience they are also listed below:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+ "@reach/router": "^1.2.1",
+    "axios": "^0.18.1",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "resolve-url-loader": "^3.1.0",
+    "sweetalert2": "^8.11.7",
 
-### Code Splitting
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Deployment with Netlify
 
-### Analyzing the Bundle Size
+To deploy your own version of this web application, follow instruction below:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+1. Make sure you have forked this project and you have your own repo for it.
 
-### Making a Progressive Web App
+2. Create a Netlify Account.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+3. Navigate to your projects directory and from the CLI run:
 
-### Advanced Configuration
+```
+npm run build
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+4. Install Netlify's CLI tool and run deploy:
 
-### Deployment
+```
+npm install netlify-cli -g
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+netlify deploy
+```
 
-### `npm run build` fails to minify
+5. Next follow the CLI prompts to complete the deployment of your web app.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Built With
+
+- [Node.js](https://nodejs.org/en/docs/)
+- [Netlify](https://www.netlify.com/docs/)
+- [Reactjs](https://reactjs.org/docs/getting-started.html)
+- [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
+
+## Authors
+
+- **[Shiva Heydaribeni](https://github.com/SH-H-B)** - _Author_
+
+## Links
+
+- http://northcoders-daily-news.netlify.com - Live Deployed Version of Web-App
+- https://github.com/SH-H-B/BE2-NC-Knews - Github page for back-end side of project
+- https://shiva-knews.herokuapp.com/api - API endpoint

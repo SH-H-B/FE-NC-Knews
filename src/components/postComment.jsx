@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button } from "../utils/utils";
 import { postComment } from "../api";
 import { navigate } from "@reach/router";
 
@@ -9,7 +8,7 @@ class PostComment extends Component {
   };
   render() {
     return (
-      <div>
+      <form onSubmit={this.postComment}>
         <textarea
           name="txtComment"
           id="txtComment"
@@ -24,13 +23,14 @@ class PostComment extends Component {
           disabled={!this.props.loggedInUser}
           required
         />
-        <Button
-          className="btn btn-outline-info"
-          onClick={this.postComment}
-          buttonText="Submit"
+        <button
+          type="submit"
+          className="btn btn-outline-warning"
           disabled={!this.props.loggedInUser}
-        />
-      </div>
+        >
+          Submit
+        </button>
+      </form>
     );
   }
   changeHandler = e => {
