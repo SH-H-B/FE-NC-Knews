@@ -10,9 +10,19 @@ class Author extends Component {
     getUserByUsername(this.props.author)
       .then(user => {
         this.setState({ user: user });
-        getArticleList({ author: this.props.author }).then(articles => {
-          this.setState({ articlesByAuthor: articles, loading: false });
-        });
+        getArticleList({ author: this.props.author })
+          .then(articles => {
+            this.setState({ articlesByAuthor: articles, loading: false });
+          })
+          .catch(({ response }) => {
+            navigate("/error", {
+              state: {
+                code: response.data.status,
+                message: response.data.msg
+              },
+              replace: true
+            });
+          });
       })
       .catch(({ response }) => {
         navigate("/error", {

@@ -29,7 +29,7 @@ const Header = props => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/">
+              <Link className="nav-link" to="/create-article">
                 Create Article
               </Link>
             </li>
@@ -38,7 +38,7 @@ const Header = props => {
           <div className="float-right">
             {!props.loggedInUser ? (
               <Link className="btn btn-outline-warning" to="/login">
-                Login
+                Login / Register
               </Link>
             ) : (
               <React.Fragment>

@@ -11,6 +11,7 @@ import Article from "./components/Article";
 import Login from "./components/Login";
 import Errors from "./components/Errors";
 import Author from "./components/Author";
+import PostArticle from "./components/PostArticle";
 
 class App extends Component {
   state = { loggedInUser: null };
@@ -42,6 +43,10 @@ class App extends Component {
           <Login path="/login" loginStateChanger={this.loginStateChanger} />
           <Errors path="/error" />
           <Errors path="/*" />
+          <PostArticle
+            path="/create-article"
+            loggedInUser={this.state.loggedInUser}
+          />
         </Router>
       </div>
     );

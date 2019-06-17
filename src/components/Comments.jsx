@@ -43,26 +43,44 @@ class Comments extends Component {
 
   render() {
     if (!this.state.loading) {
-      return (
-        <div>
-          <PostComment
-            articleID={this.props.articleID}
-            loggedInUser={this.props.loggedInUser}
-            commentListUpdater={this.commentListUpdater}
-          />
+      if (this.state.comments.length !== 0) {
+        return (
+          <div>
+            <PostComment
+              articleID={this.props.articleID}
+              loggedInUser={this.props.loggedInUser}
+              commentListUpdater={this.commentListUpdater}
+            />
 
-          {this.state.comments.map(comment => {
-            return (
-              <CommentCard
-                comment={comment}
-                key={comment.comment_id}
-                loggedInUser={this.props.loggedInUser}
-                commentListUpdater={this.commentListUpdater}
-              />
-            );
-          })}
-        </div>
-      );
+            {this.state.comments.map(comment => {
+              return (
+                <CommentCard
+                  comment={comment}
+                  key={comment.comment_id}
+                  loggedInUser={this.props.loggedInUser}
+                  commentListUpdater={this.commentListUpdater}
+                />
+              );
+            })}
+          </div>
+        );
+      } else {
+        return (
+          <React.Fragment>
+            <PostComment
+              articleID={this.props.articleID}
+              loggedInUser={this.props.loggedInUser}
+              commentListUpdater={this.commentListUpdater}
+            />
+            <br />
+            <br />
+
+            <div className="alert alert-warning ">
+              No comments yet, be the first one to write a comment !{" "}
+            </div>
+          </React.Fragment>
+        );
+      }
     } else {
       return <Loading />;
     }

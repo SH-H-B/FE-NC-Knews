@@ -41,7 +41,7 @@ class Login extends Component {
 
         <form onSubmit={this.registerHandler} className="container">
           <div className="card border-dark mt-5">
-            <div className="card-header">Sign up</div>
+            <div className="card-header">Register</div>
             <div className="col-6 card-body mx-auto">
               <div className="form-group">
                 <label htmlFor="txtname">Name:</label>
@@ -70,7 +70,7 @@ class Login extends Component {
               </div>
               {this.state.message}
               <button type="submit" className="btn btn-warning">
-                Sign up
+                Register
               </button>
               <div className="clearfix" />
             </div>

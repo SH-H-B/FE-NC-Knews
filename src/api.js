@@ -81,3 +81,11 @@ export const deleteComment = comment_id => {
       return comment;
     });
 };
+
+export const postAnArticle = article => {
+  return axios
+    .post(`${url}/articles/`, article)
+    .then(({ data: { article } }) => {
+      return article;
+    });
+};
