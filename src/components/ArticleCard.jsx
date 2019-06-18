@@ -13,25 +13,30 @@ const ArticleCard = ({
 }) => {
   let articleBody, articleHeader, articleTitle, readMoreLink;
 
-  if (fullArticle) {
-    articleBody = <p className="card-text">{article.body}</p>;
-    articleHeader = <h5 className="card-header">{article.title}</h5>;
-    articleTitle = (
-      <label className="badge badge-info float-right">{article.topic}</label>
-    );
-  } else {
-    articleBody = <p className="card-text text-truncate">{article.body}</p>;
-    articleHeader = <div className="card-header">{article.topic}</div>;
-    articleTitle = <h5 className="card-title">{article.title}</h5>;
-    readMoreLink = (
-      <Link
-        to={`/articles/${article.article_id}`}
-        className="btn btn-warning float-right "
-      >
-        Read more
-      </Link>
-    );
-  }
+  articleBody = fullArticle ? (
+    <p className="card-text">{article.body}</p>
+  ) : (
+    <p className="card-text text-truncate">{article.body}</p>
+  );
+  articleHeader = fullArticle ? (
+    <h5 className="card-header">{article.title}</h5>
+  ) : (
+    <div className="card-header">{article.topic}</div>
+  );
+  articleTitle = fullArticle ? (
+    <label className="badge badge-info float-right">{article.topic}</label>
+  ) : (
+    <h5 className="card-title">{article.title}</h5>
+  );
+
+  readMoreLink = fullArticle && (
+    <Link
+      to={`/articles/${article.article_id}`}
+      className="btn btn-info float-right "
+    >
+      Read more
+    </Link>
+  );
   const deleteArticleHandler = e => {
     e.preventDefault();
     deleteArticle(article.article_id)
