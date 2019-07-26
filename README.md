@@ -33,7 +33,7 @@ Follow these instructions in order to get a copy of the project up and running o
 2. Clone the repo remotely by executing this command:
 
 ```
-git clone the repo from https://github.com/SH-H-B/FE-NC-Knews
+git clone https://github.com/SH-H-B/FE-NC-Knews
 ```
 
 3. Change directory to the local repo file.
