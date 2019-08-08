@@ -97,5 +97,5 @@ netlify deploy
 ## Links
 
 - https://northcoders-daily-news.netlify.com - Live Deployed Version of Web-App
-- https://github.com/SH-H-B/BE2-NC-Knews - Github page for back-end side of project
+- https://github.com/SH-H-B/backend-nc-news - Github page for back-end side of project
 - https://shiva-knews.herokuapp.com/api - API endpoint
